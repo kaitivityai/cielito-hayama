@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cielito Hayama Official Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cielito Hayama is a three-story vacation home that can accommodate up to 10 guests. Expansive skies, rolling green hills, tranquil shores, and breathtaking sunsets await.">
+
+    <!-- OGP -->
+    <meta property="og:title" content="Cielito Hayama Official Website">
+    <meta property="og:description" content="A three-story vacation home for up to 10 guests in Hayama, Japan.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/img/ogp.jpg">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Lato:wght@300;400;700&family=Pinyon+Script&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'EB Garamond', Georgia, serif;
+            color: #333;
+            background: #fff;
+        }
+
+        /* ===== LOADING ===== */
+        #loading-screen {
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .loader {
+            border: 1px solid rgba(255,255,255,0.2);
+            border-top: 1px solid #fff;
+            border-radius: 50%;
+            width: 40px; height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        body.preload #main-content { opacity: 0; visibility: hidden; }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(4px);
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        .nav-links a:hover { opacity: 1; }
+        .nav-lang a {
+            color: #fff;
+            font-family: 'Lato', sans-serif;
+            font-size: 12px;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.6);
+            padding: 4px 12px;
+            border-radius: 2px;
+            transition: background 0.2s;
+        }
+        .nav-lang a:hover { background: rgba(255,255,255,0.15); }
+
+        /* ===== HERO VIDEO ===== */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .hero video {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-video-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        .hero-video-text .hero-logo-overlay {
+            width: clamp(220px, 35vw, 480px);
+            mix-blend-mode: screen;
+            filter: invert(1);
+        }
+
+        /* ===== HERO TEXT (below video) ===== */
+        .hero-text {
+            background: #fff;
+            text-align: center;
+            padding: 60px 24px;
+        }
+        .hero-logo {
+            width: 200px;
+            margin-bottom: 24px;
+        }
+        .txt-animation {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .txt-animation2 {
+            font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 0.35em;
+            color: #888;
+        }
+        .hero-book {
+            margin-top: 36px;
+        }
+        .hero-book a {
+            display: inline-block;
+            color: #333;
+            border: 1px solid #333;
+            padding: 12px 36px;
+            font-family: 'Lato', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .hero-book a:hover { background: #333; color: #fff; }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .content { background: #fff; }
+
+        .section {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 768px) {
+            .section.img-left  { grid-template-columns: 2fr 3fr; }
+            .section.img-right { grid-template-columns: 3fr 2fr; }
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            padding: 8px;
+        }
+        @media (min-width: 768px) {
+            .photo-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1280px) {
+            .photo-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .photo-grid img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .section-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 48px 32px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        @media (min-width: 640px) { .section-text { padding: 64px 80px; } }
+
+        .section-text h2 {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+        }
+        .section-text p {
+            font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+            line-height: 2;
+            color: #444;
+            margin-bottom: 14px;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+        .section-text p.note {
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        @media (min-width: 768px) {
+            .section.img-right .photo-grid { order: 2; }
+            .section.img-right .section-text { order: 1; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #111;
+            color: #aaa;
+            text-align: center;
+            padding: 48px 24px;
+        }
+        footer .footer-logo {
+            width: 200px;
+            filter: invert(1);
+            mix-blend-mode: screen;
+            margin-bottom: 20px;
+        }
+        footer p {
+            font-size: 0.75rem;
+            line-height: 2;
+        }
+        footer a {
+            color: #aaa;
+            text-decoration: none;
+        }
+        footer a:hover { color: #fff; }
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+        }
+        footer .instagram {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin-top: 8px;
+        }
+        footer .instagram svg { width: 18px; height: 18px; fill: #aaa; }
+    </style>
+</head>
+<body class="preload">
+
+<!-- Loading -->
+<div id="loading-screen"><div class="loader"></div></div>
+
+<div id="main-content">
+
+    <!-- Nav -->
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#area">Area</a></li>
+            <li><a href="https://www.airbnb.jp/rooms/1320995725695019586" target="_blank" rel="noopener">Book</a></li>
+            <li><a href="https://www.instagram.com/cielito_hayama/" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white" style="display:block;opacity:0.9"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a></li>
+        </ul>
+        <div class="nav-lang">
+            <a href="index.html">JA</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <video autoplay muted loop playsinline>
+            <source src="assets/video/bg_web.mp4" type="video/mp4">
+        </video>
+        <div class="hero-video-text">
+            <img class="hero-logo-overlay" src="assets/img/logo_cropped.jpg" alt="Cielito Hayama">
+        </div>
+    </section>
+
+    <!-- Hero Text -->
+    <div class="hero-text">
+        <img class="hero-logo" src="assets/img/logo_cropped.jpg" alt="Cielito Hayama">
+        <p class="txt-animation">Where Sky Meets Sea in Hayama</p>
+        <p class="txt-animation2">HAYAMA, KANAGAWA, JAPAN</p>
+        <div class="hero-book">
+            <a href="https://www.airbnb.jp/rooms/1320995725695019586" target="_blank" rel="noopener">BOOK ON AIRBNB</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content" id="about">
+
+        <!-- Section 1 -->
+        <div class="section img-left">
+            <div class="photo-grid">
+                <img src="assets/img/02-01.jpg" alt="Cielito Hayama exterior">
+                <img src="assets/img/02-02.jpg" alt="Cielito Hayama terrace">
+                <img src="assets/img/02-03.jpg" alt="Terrace BBQ">
+                <img src="assets/img/02-04.jpg" alt="Bedroom">
+                <img src="assets/img/02-05.jpg" alt="Living room">
+                <img src="assets/img/02-06.jpg" alt="Isshiki Beach nearby">
+            </div>
+            <div class="section-text scroll-up">
+                <h2>10 Minutes to Isshiki Beach.<br>BBQ on the Rooftop Terrace.<br>150㎡+ of Space, 4 Bedrooms.</h2>
+                <p>From the terrace, watch the ever-changing sky. Stroll through charming lanes, relax on the Imperial Villa's quiet beach, and witness Mt. Fuji glowing at sunset during the magical hour. Pack a camping chair for a beach picnic, or enjoy a BBQ on the third-floor terrace.</p>
+                <p>Supermarkets, convenience stores, and restaurants are all within walking distance.</p>
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="section img-right">
+            <div class="photo-grid">
+                <img src="assets/img/03-01.jpg" alt="Third-floor terrace">
+                <img src="assets/img/03-02.jpg" alt="View from the terrace">
+                <img src="assets/img/03-03.jpg" alt="Terrace living room">
+                <img src="assets/img/03-04.jpg" alt="Living room interior">
+                <img src="assets/img/03-05.jpg" alt="Sunset from the terrace">
+                <img src="assets/img/03-06.jpg" alt="Terrace BBQ setting">
+            </div>
+            <div class="section-text scroll-up">
+                <h2>A Rooftop Terrace Living Room<br>for a Leisurely Holiday</h2>
+                <p>The third-floor terrace and living area are the most relaxing spots in the house. Sip your morning coffee with the sunrise, or share conversation with loved ones while the evening sky transforms in color. The terrace BBQ is a guest favorite.</p>
+            </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="section img-left" id="area">
+            <div class="photo-grid">
+                <img src="assets/img/04-01.jpg" alt="View toward Kamakura">
+                <img src="assets/img/04-02.jpg" alt="Coastal drive">
+                <img src="assets/img/04-03.jpg" alt="Enoshima Island">
+                <img src="assets/img/04-04.jpg" alt="Miura Peninsula scenery">
+                <img src="assets/img/04-05.jpg" alt="Local beach">
+                <img src="assets/img/04-06.jpg" alt="Mt. Fuji and sunset view">
+            </div>
+            <div class="section-text scroll-up">
+                <h2>Your Perfect Base for Kamakura, Shonan & the Miura Peninsula</h2>
+                <p>Just one train stop from Kamakura. Take a coastal drive to Enoshima, shop for fresh fish at Sajima Fishing Port and cook it yourself, or visit Soleil Hill and Jogashima Island. An excellent base for fishing or diving trips as well.</p>
+                <p class="note">*From Zushi Station, take the local bus (approx. 15 minutes) to reach the house.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <img class="footer-logo" src="assets/img/logo_cropped.jpg" alt="Cielito Hayama">
+        <div class="footer-links">
+            <a href="https://www.airbnb.jp/rooms/1320995725695019586" target="_blank" rel="noopener">Book on Airbnb</a>
+            <a href="page.html">Legal Notice</a>
+            <a href="index.html">日本語</a>
+        </div>
+        <a class="instagram" href="https://www.instagram.com/cielito_hayama/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            @cielito_hayama
+        </a>
+        <p style="margin-top:24px;">© 2026 Cielito Hayama. All rights reserved.</p>
+    </footer>
+
+</div>
+
+<script>
+window.addEventListener('load', function () {
+    const loader  = document.getElementById('loading-screen');
+    const content = document.getElementById('main-content');
+
+    gsap.to(loader, {
+        duration: 1, opacity: 0,
+        onComplete: function () {
+            loader.style.display = 'none';
+            document.body.classList.remove('preload');
+            gsap.to(content, { duration: 1, opacity: 1 });
+        }
+    });
+
+    function splitTextToChars(selector) {
+        document.querySelectorAll(selector).forEach(function (el) {
+            var fragment = document.createDocumentFragment();
+            el.childNodes.forEach(function (node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    node.textContent.split('').forEach(function (char) {
+                        var span = document.createElement('span');
+                        span.className = 'char';
+                        span.textContent = char;
+                        fragment.appendChild(span);
+                    });
+                } else if (node.nodeName === 'BR') {
+                    fragment.appendChild(document.createElement('br'));
+                } else {
+                    fragment.appendChild(node.cloneNode(true));
+                }
+            });
+            el.textContent = '';
+            el.appendChild(fragment);
+        });
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    splitTextToChars('.txt-animation');
+    splitTextToChars('.txt-animation2');
+
+    var tl = gsap.timeline();
+    tl.from('.txt-animation .char',  { opacity: 0, duration: 0.8, ease: 'power2.out', stagger: 0.05 });
+    tl.from('.txt-animation2 .char', { opacity: 0, duration: 0.5, ease: 'power1.out', stagger: 0.01 }, '>');
+
+    gsap.utils.toArray('.scroll-up').forEach(function (el) {
+        gsap.fromTo(el,
+            { opacity: 0, y: 60 },
+            {
+                opacity: 1, y: 0, duration: 1.5, ease: 'power3.out',
+                scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+            }
+        );
+    });
+});
+</script>
+
+</body>
+</html>
