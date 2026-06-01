@@ -2,7 +2,7 @@
 
 ## プロジェクト概要
 - **サイト名**: シエリート葉山 / Cielito Hayama
-- **URL**: https://cielito-hayama.com（予定） / 現在: Cloudflare Pagesにデプロイ済み
+- **URL**: https://cielito-hayama.com（予定） / 現在: https://cielito-hayama.junko.tilgner.workers.dev
 - **構成**: 静的HTML/CSSのみ（フレームワーク・CMSなし）
 - **ファイル**: `index.html`（日本語）、`en.html`（英語）
 - **ホスティング**: Cloudflare Pages（GitHubにpushすると自動デプロイ）
