@@ -1,0 +1,6 @@
+node_modules
+.github
+CLAUDE.md
+wrangler.toml
+.wranglerignore
+package*.json
