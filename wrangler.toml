@@ -1,5 +1,10 @@
 name = "cielito-hayama"
 compatibility_date = "2024-01-01"
 
+routes = [
+  { pattern = "cielito-hayama.com", custom_domain = true },
+  { pattern = "www.cielito-hayama.com", custom_domain = true }
+]
+
 [assets]
 directory = "."
