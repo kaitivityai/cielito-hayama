@@ -205,6 +205,7 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 4px;
             padding: 8px;
+            align-self: start;
         }
         @media (min-width: 768px) {
             .photo-grid { grid-template-columns: repeat(2, 1fr); }
@@ -212,9 +213,17 @@
         @media (min-width: 1280px) {
             .photo-grid { grid-template-columns: repeat(3, 1fr); }
         }
-        .photo-grid img {
+        .photo-grid-item {
+            position: relative;
             width: 100%;
-            aspect-ratio: 1 / 1;
+            padding-bottom: 100%;
+            overflow: hidden;
+        }
+        .photo-grid-item img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
         }
@@ -340,29 +349,28 @@
         <!-- Section 1 -->
         <div class="section img-left">
             <div class="photo-grid">
-                <img src="assets/img/02-01.jpg" alt="シエリート葉山 外観">
-                <img src="assets/img/02-02.jpg" alt="シエリート葉山 テラス">
-                <img src="assets/img/02-03.jpg" alt="シエリート葉山 BBQ">
-                <img src="assets/img/02-04.jpg" alt="シエリート葉山 ベッドルーム">
-                <img src="assets/img/02-05.jpg" alt="シエリート葉山 リビング">
-                <img src="assets/img/02-06.jpg" alt="シエリート葉山 海岸">
+                <div class="photo-grid-item"><img src="assets/img/02-01.jpg" alt="シエリート葉山 外観"></div>
+                <div class="photo-grid-item"><img src="assets/img/02-02.jpg" alt="シエリート葉山 テラス"></div>
+                <div class="photo-grid-item"><img src="assets/img/02-03.jpg" alt="シエリート葉山 BBQ"></div>
+                <div class="photo-grid-item"><img src="assets/img/02-04.jpg" alt="シエリート葉山 ベッドルーム"></div>
+                <div class="photo-grid-item"><img src="assets/img/02-05.jpg" alt="シエリート葉山 リビング"></div>
+                <div class="photo-grid-item"><img src="assets/img/02-06.jpg" alt="シエリート葉山 海岸"></div>
             </div>
             <div class="section-text scroll-up">
-                <h2>一色海岸まで徒歩10分<br>家族や仲間とテラスBBQ<br>150㎡超、4ベッドルーム</h2>
-                <p>刻々と表情を変える大きな空をテラスから眺める。風情のある小道を散策したり、御用邸前の海岸でのんびり過ごしたり、マジックアワーには富士山と夕日の絶景に魅せられたり。キャンピングチェアを持ち出してのビーチピクニックや、3階テラスでのBBQも最高。</p>
-                <p>スーパーマーケット、コンビニ、レストランもすべて徒歩圏内。</p>
+                <h2>葉山の一棟貸し邸宅・最大10名<br>150㎡超、4ベッドルーム<br>一色海岸まで徒歩10分</h2>
+                <p>刻々と表情を変える大きな空をテラスから眺める。風情のある小道を散策したり、御用邸前の海岸でのんびり過ごしたり、マジックアワーには富士山と夕日の絶景に魅せられたり。各階にお手洗いが完備され、エレベーターもあるので3世代の家族旅行にも大好評です。駐車場スペースは2台。逗子駅からお越しの場合はタクシーで約10分。スーパーマーケット、コンビニ、レストランもすべて徒歩圏内。</p>
             </div>
         </div>
 
         <!-- Section 2 -->
         <div class="section img-right">
             <div class="photo-grid">
-                <img src="assets/img/03-01.jpg" alt="3階テラス">
-                <img src="assets/img/03-02.jpg" alt="テラスからの眺め">
-                <img src="assets/img/03-03.jpg" alt="テラスリビング">
-                <img src="assets/img/03-04.jpg" alt="リビングルーム">
-                <img src="assets/img/03-05.jpg" alt="テラスからの夕景">
-                <img src="assets/img/03-06.jpg" alt="テラスBBQ">
+                <div class="photo-grid-item"><img src="assets/img/03-01.jpg" alt="3階テラス"></div>
+                <div class="photo-grid-item"><img src="assets/img/03-02.jpg" alt="テラスからの眺め"></div>
+                <div class="photo-grid-item"><img src="assets/img/03-03.jpg" alt="テラスリビング"></div>
+                <div class="photo-grid-item"><img src="assets/img/03-04.jpg" alt="リビングルーム"></div>
+                <div class="photo-grid-item"><img src="assets/img/03-05.jpg" alt="テラスからの夕景"></div>
+                <div class="photo-grid-item"><img src="assets/img/03-06.jpg" alt="テラスBBQ"></div>
             </div>
             <div class="section-text scroll-up">
                 <h2>天空のテラスリビングで<br>悠々と過ごす休日</h2>
@@ -373,17 +381,17 @@
         <!-- Section 3 -->
         <div class="section img-left" id="area">
             <div class="photo-grid">
-                <img src="assets/img/04-01.jpg" alt="葉山から鎌倉方面">
-                <img src="assets/img/04-02.jpg" alt="海岸ドライブ">
-                <img src="assets/img/04-03.jpg" alt="江ノ島">
-                <img src="assets/img/04-04.jpg" alt="三浦半島">
-                <img src="assets/img/04-05.jpg" alt="周辺の海岸">
-                <img src="assets/img/04-06.jpg" alt="富士山と夕日">
+                <div class="photo-grid-item"><img src="assets/img/04-01.jpg" alt="葉山から鎌倉方面"></div>
+                <div class="photo-grid-item"><img src="assets/img/04-02.jpg" alt="海岸ドライブ"></div>
+                <div class="photo-grid-item"><img src="assets/img/04-03.jpg" alt="江ノ島"></div>
+                <div class="photo-grid-item"><img src="assets/img/04-04.jpg" alt="三浦半島"></div>
+                <div class="photo-grid-item"><img src="assets/img/04-05.jpg" alt="周辺の海岸"></div>
+                <div class="photo-grid-item"><img src="assets/img/04-06.jpg" alt="富士山と夕日"></div>
             </div>
             <div class="section-text scroll-up">
                 <h2>鎌倉、湘南、三浦半島への<br>旅の拠点に</h2>
                 <p>鎌倉からはたった一駅。海岸沿いをドライブすれば江ノ島観光も。佐島漁港で魚を仕入れて料理をするのも楽しい。ソレイユの丘や城ヶ島まで足を伸ばしたり。釣りやダイビングの拠点にもおすすめです。</p>
-                <p class="note">*現地までは逗子駅からローカルバス（所要時間15分）をご利用ください</p>
+                <p class="note">*逗子駅からはタクシーで約10分。</p>
             </div>
         </div>
 
