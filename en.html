@@ -200,6 +200,7 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 4px;
             padding: 8px;
+            align-self: start;
         }
         @media (min-width: 768px) {
             .photo-grid { grid-template-columns: repeat(2, 1fr); }
@@ -207,9 +208,17 @@
         @media (min-width: 1280px) {
             .photo-grid { grid-template-columns: repeat(3, 1fr); }
         }
-        .photo-grid img {
+        .photo-grid-item {
+            position: relative;
             width: 100%;
-            aspect-ratio: 1 / 1;
+            padding-bottom: 100%;
+            overflow: hidden;
+        }
+        .photo-grid-item img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
         }
@@ -337,29 +346,28 @@
         <!-- Section 1 -->
         <div class="section img-left">
             <div class="photo-grid">
-                <img src="assets/img/02-01.jpg" alt="Cielito Hayama exterior">
-                <img src="assets/img/02-02.jpg" alt="Cielito Hayama terrace">
-                <img src="assets/img/02-03.jpg" alt="Terrace BBQ">
-                <img src="assets/img/02-04.jpg" alt="Bedroom">
-                <img src="assets/img/02-05.jpg" alt="Living room">
-                <img src="assets/img/02-06.jpg" alt="Isshiki Beach nearby">
+                <div class="photo-grid-item"><img src="assets/img/02-01.jpg" alt="Cielito Hayama exterior"></div>
+                <div class="photo-grid-item"><img src="assets/img/02-02.jpg" alt="Cielito Hayama terrace"></div>
+                <div class="photo-grid-item"><img src="assets/img/02-03.jpg" alt="Mt. Fuji view from Hayama"></div>
+                <div class="photo-grid-item"><img src="assets/img/02-04.jpg" alt="Bedroom"></div>
+                <div class="photo-grid-item"><img src="assets/img/02-05.jpg" alt="Living room"></div>
+                <div class="photo-grid-item"><img src="assets/img/02-06.jpg" alt="Isshiki Beach nearby"></div>
             </div>
             <div class="section-text scroll-up">
-                <h2>10 Minutes to Isshiki Beach.<br>BBQ on the Rooftop Terrace.<br>150㎡+ of Space, 4 Bedrooms.</h2>
-                <p>From the terrace, watch the ever-changing sky. Stroll through charming lanes, relax on the Imperial Villa's quiet beach, and witness Mt. Fuji glowing at sunset during the magical hour. Pack a camping chair for a beach picnic, or enjoy a BBQ on the third-floor terrace.</p>
-                <p>Supermarkets, convenience stores, and restaurants are all within walking distance.</p>
+                <h2>Private Villa in Hayama · Up to 10 Guests<br>150㎡+, 4 Bedrooms<br>10 Minutes Walk to Isshiki Beach</h2>
+                <p>From the terrace, watch the ever-changing sky. Stroll through charming lanes, relax on the Imperial Villa's quiet beach, and witness Mt. Fuji glowing at sunset during the magical hour. With a restroom on every floor and an elevator, Cielito Hayama is a popular choice for three-generation family trips. Parking for 2 cars available. A 10-minute taxi ride from Zushi Station. Supermarkets, convenience stores, and restaurants are all within walking distance.</p>
             </div>
         </div>
 
         <!-- Section 2 -->
         <div class="section img-right">
             <div class="photo-grid">
-                <img src="assets/img/03-01.jpg" alt="Third-floor terrace">
-                <img src="assets/img/03-02.jpg" alt="View from the terrace">
-                <img src="assets/img/03-03.jpg" alt="Terrace living room">
-                <img src="assets/img/03-04.jpg" alt="Living room interior">
-                <img src="assets/img/03-05.jpg" alt="Sunset from the terrace">
-                <img src="assets/img/03-06.jpg" alt="Terrace BBQ setting">
+                <div class="photo-grid-item"><img src="assets/img/03-01.jpg" alt="Third-floor terrace"></div>
+                <div class="photo-grid-item"><img src="assets/img/03-02.jpg" alt="View from the terrace"></div>
+                <div class="photo-grid-item"><img src="assets/img/03-03.jpg" alt="Terrace living room"></div>
+                <div class="photo-grid-item"><img src="assets/img/03-04.jpg" alt="Living room interior"></div>
+                <div class="photo-grid-item"><img src="assets/img/03-05.jpg" alt="Sunset from the terrace"></div>
+                <div class="photo-grid-item"><img src="assets/img/03-06.jpg" alt="Terrace BBQ setting"></div>
             </div>
             <div class="section-text scroll-up">
                 <h2>A Rooftop Terrace Living Room<br>for a Leisurely Holiday</h2>
@@ -370,17 +378,17 @@
         <!-- Section 3 -->
         <div class="section img-left" id="area">
             <div class="photo-grid">
-                <img src="assets/img/04-01.jpg" alt="View toward Kamakura">
-                <img src="assets/img/04-02.jpg" alt="Coastal drive">
-                <img src="assets/img/04-03.jpg" alt="Enoshima Island">
-                <img src="assets/img/04-04.jpg" alt="Miura Peninsula scenery">
-                <img src="assets/img/04-05.jpg" alt="Local beach">
-                <img src="assets/img/04-06.jpg" alt="Mt. Fuji and sunset view">
+                <div class="photo-grid-item"><img src="assets/img/04-01.jpg" alt="View toward Kamakura"></div>
+                <div class="photo-grid-item"><img src="assets/img/04-02.jpg" alt="Coastal drive"></div>
+                <div class="photo-grid-item"><img src="assets/img/04-03.jpg" alt="Enoshima Island"></div>
+                <div class="photo-grid-item"><img src="assets/img/04-04.jpg" alt="Miura Peninsula scenery"></div>
+                <div class="photo-grid-item"><img src="assets/img/04-05.jpg" alt="Local beach"></div>
+                <div class="photo-grid-item"><img src="assets/img/04-06.jpg" alt="Mt. Fuji and sunset view"></div>
             </div>
             <div class="section-text scroll-up">
                 <h2>Your Perfect Base for Kamakura, Shonan & the Miura Peninsula</h2>
                 <p>Just one train stop from Kamakura. Take a coastal drive to Enoshima, shop for fresh fish at Sajima Fishing Port and cook it yourself, or visit Soleil Hill and Jogashima Island. An excellent base for fishing or diving trips as well.</p>
-                <p class="note">*From Zushi Station, take the local bus (approx. 15 minutes) to reach the house.</p>
+                <p class="note">*Approx. 10 minutes by taxi from Zushi Station.</p>
             </div>
         </div>
 
